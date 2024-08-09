@@ -50,7 +50,45 @@ class TestListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required'],
+            'test_category_id' => ['required']
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->messages(), 400);
+        }
+        else{
+            $data = [
+                'name' => $request->name,
+                'test_category_id' => $request->test_category_id
+            ];
+
+            DB::beginTransaction();
+
+            try {
+
+                $test_list = TestList::create($data);
+                DB::commit();
+            } catch(\Exception $e) {
+                DB::rollBack();
+                $test_list = null;
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], 200);
+            }
+
+            if($test_list != null) {
+                return response()->json([
+                    'message' => 'Test List Registered Successfully.'
+                ], 200);
+            }
+            else{
+                return response()->json([
+                    'message' => 'Internal Servor Error'
+                ],500);
+            }
+        }
     }
 
     /**
