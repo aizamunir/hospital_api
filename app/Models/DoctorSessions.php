@@ -10,7 +10,7 @@ class DoctorSessions extends Model
     use HasFactory;
 
     protected $table = "doctor_sessions";
-    protected $primaryKey = "doctor_sessions_id";
+    protected $primaryKey = "doctor_session_id";
 
     protected $fillable = [
         'doctor_id',
