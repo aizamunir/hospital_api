@@ -150,34 +150,21 @@ class ServiceController extends Controller
 
                 DB::commit();
 
-            } catch (\Exception $e) {
-                DB::rollBack();
-                $service = null;
                 return response()->json([
-                   'message' => $e->getMessage()
-                ], 200);
-                }
-                
-                if ($service != null) {
-                $response = [
                     'message' => 'Service updated successfully',
                     'status' => 1
-                    ];
+                 ], 200);
 
-                $respCode = 200;
-               }
-               else{
-                $response =[
-                    'message' => 'Internal Server Error',
-                    'status' => 0
-                ];
-
-                $respCode = 500;
-
-               }
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json([
+                   'message' => $e->getMessage(),
+                   'status' => 0
+                ], 500);
+            }
+                
         }
 
-        return response()->json($response, $respCode);
     }
 
     /**

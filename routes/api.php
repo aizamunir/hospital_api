@@ -74,7 +74,7 @@ Route::get('services', [ServiceController::class, 'index']);
 
 Route::put('service/update/{services_id}', [ServiceController::class,'update']);
 
-Route::delete('service/delete/{service_id}', [ServiceController::class,'destroy']);
+Route::delete('service/delete/{services_id}', [ServiceController::class,'destroy']);
 
 //DOCTOR SESSON
 
