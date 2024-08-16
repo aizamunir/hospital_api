@@ -178,7 +178,7 @@ class MedicineController extends Controller
      */
     public function destroy(string $id)
     {
-        $medicine = Medicine::find($medicine_id);
+        $medicine = Medicine::find($id);
 
         if(is_null($medicine) > 0) {
             $response = [

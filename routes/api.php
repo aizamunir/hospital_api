@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\DoctorSessionsController;
 use App\Http\Controllers\Api\MedicineController;
 use App\Http\Controllers\Api\TestCategoryController;
+use App\Http\Controllers\Api\TestListController;
 
 
 //PATIENTS
@@ -87,7 +88,6 @@ Route::put('doctor_sessions/update/{doctor_sessions_id}', [DoctorSessionsControl
 Route::delete('doctor_sessions/delete/{doctor_sessions_id}', [DoctorSessionsController::class,'destroy']);
 
 //MEDICINE
-
 Route::post('medicine/store', [MedicineController::class,'store']);
 
 Route::get('medicines', [MedicineController::class, 'index']);
@@ -101,8 +101,18 @@ Route::delete('medicine/delete/{medicine_id}', [MedicineController::class,'destr
 
 Route::post('test_category/store', [TestCategoryController::class,'store']);
 
-Route::get('test_categorys', [TestCategoryController::class, 'index']);
+Route::get('test_categories', [TestCategoryController::class, 'index']);
 
 Route::put('test_category/update/{test_category_id}', [TestCategoryController::class,'update']);
 
 Route::delete('test_category/delete/{test_category_id}', [TestCategoryController::class,'destroy']);
+
+//TEST LIST
+
+Route::post('test_list/store', [TestListController::class,'store']);
+
+Route::get('test_lists', [TestListController::class, 'index']);
+
+Route::put('test_list/update/{test_list_id}', [TestListController::class,'update']);
+
+Route::delete('test_list/delete/{test_list_id}', [TestListController::class,'destroy']);
