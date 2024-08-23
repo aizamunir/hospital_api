@@ -16,6 +16,7 @@ class DiagnosticTest extends Model
         'doctor_id',
         'patient_id',
         'description',
-        'tests'
+        'tests',
+        'result'
     ];
 }

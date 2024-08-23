@@ -52,7 +52,8 @@ class DiagnosticTestController extends Controller
         $validator = Validator::make($request->all(), [
             'doctor_id' => ['required'],
             'patient_id' => ['required'],
-            'tests' => ['required']
+            'tests' => ['required'],
+            'result' => ['required']
         ]);
 
         if($validator->fails()){
@@ -63,6 +64,7 @@ class DiagnosticTestController extends Controller
             'doctor_id' => $request->doctor_id,
             'patient_id' => $request->patient_id,
             'tests' => $request->tests,
+            'result' => $request->result,
             'description' => $request->description,
         ];
 
@@ -107,7 +109,7 @@ class DiagnosticTestController extends Controller
             ];
         }
 
-        return response()->json(response, 200);
+        return response()->json($response, 200);
     }
 
     /**
@@ -141,6 +143,7 @@ class DiagnosticTestController extends Controller
                 $diagnostictest->doctor_id = $request['doctor_id'];
                 $diagnostictest->patient_id = $request['patient_id'];
                 $diagnostictest->tests = $request['tests'];
+                $diagnostictest->result = $request['result'];
                 $diagnostictest->description = $request['description'];
                 $diagnostictest->save();
 
