@@ -56,7 +56,8 @@ class PatientController extends Controller
             'phn_num' => ['required'], ['regex:/^03\d{9,}$/'],
             'disease' => ['required'],
             'gender' => ['required'],
-            'doctor_id' => ['required']
+            'doctor_id' => ['required'],
+            'status' => ['required']
         ]);
 
         if($validator->fails()){
@@ -69,7 +70,8 @@ class PatientController extends Controller
             'phn_num' => $request->phn_num,
             'disease' => $request->disease,
             'gender' => $request->gender,
-            'doctor_id' => $request->doctor_id
+            'doctor_id' => $request->doctor_id,
+            'status' => $request->status
         ];
 
         DB::beginTransaction();
@@ -149,6 +151,7 @@ class PatientController extends Controller
                 $patient -> disease = $request['disease'];
                 $patient -> gender = $request['gender'];
                 $patient -> doctor_id = $request['doctor_id'];
+                $patient -> status = $request['status'];
 
                 $patient->save();
                 

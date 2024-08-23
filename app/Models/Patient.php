@@ -19,7 +19,8 @@ class Patient extends Model
         'phn_num',
         'disease',
         'gender',
-        'doctor_id'
+        'doctor_id',
+        'status'
     ];
 
     public function doctor() {

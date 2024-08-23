@@ -68,7 +68,7 @@ class TestListController extends Controller
 
             try {
 
-                $test_lists = TestList::create($data);
+                $test_list = TestList::create($data);
                 DB::commit();
             } catch(\Exception $e) {
                 DB::rollBack();
@@ -129,7 +129,7 @@ class TestListController extends Controller
     public function update(Request $request, string $id)
     {
         $test_list = TestList::find($id);
-        if(is_null($test_lists)) {
+        if(is_null($test_list)) {
             $response = [
                 'message' => 'Test List not found',
                 'status' => 0
@@ -183,7 +183,7 @@ class TestListController extends Controller
      */
     public function destroy(string $id)
     {
-        $test_list = TestList::find($test_list_id);
+        $test_list = TestList::find($id);
 
         if(is_null($test_list) > 0) {
             $response = [

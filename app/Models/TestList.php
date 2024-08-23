@@ -10,7 +10,7 @@ class TestList extends Model
     use HasFactory;
 
     protected $table = "test_list";
-    protected $primaryKey = "test_id";
+    protected $primaryKey = "test_list_id";
 
     protected $fillable = [
         'name',
