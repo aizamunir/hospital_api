@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctor_sessions', function (Blueprint $table) {
-            $table->id('doctor_session_id');
+        Schema::create('activity_log', function (Blueprint $table) {
+            $table->id('activity_log_id');
+            $table->integer('patient_id');
             $table->integer('doctor_id');
-            $table->integer('time_slot');
-            $table->string('days');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->string('remarks');
+            $table->date('date');
+            $table->time('time');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctor_sessions');
+        Schema::dropIfExists('activity_logs');
     }
 };

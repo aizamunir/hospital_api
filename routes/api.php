@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\DoctorSessionsController;
 use App\Http\Controllers\Api\MedicineController;
 use App\Http\Controllers\Api\TestCategoryController;
 use App\Http\Controllers\Api\TestListController;
+use App\Http\Controllers\Api\ActivityLogController;
 
 
 //PATIENTS
@@ -116,3 +117,13 @@ Route::get('test_lists', [TestListController::class, 'index']);
 Route::put('test_list/update/{test_list_id}', [TestListController::class,'update']);
 
 Route::delete('test_list/delete/{test_list_id}', [TestListController::class,'destroy']);
+
+//ACTIVITY LOG
+
+Route::post('activity_log/store', [ActivityLogController::class,'store']);
+
+Route::get('activity_log', [ActivityLogController::class, 'index']);
+
+Route::put('activity_log/update/{activity_log_id}', [ActivityLogController::class,'update']);
+
+Route::delete('activity_log/delete/{activity_log_id}', [ActivityLogController::class,'destroy']);
