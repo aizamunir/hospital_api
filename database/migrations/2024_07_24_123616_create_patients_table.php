@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('disease', 50);
             $table->string('gender', 6);
             $table->string('doctor_id', 25);
+            $table->string('status', 15);
             $table->timestamps();
         });
     }

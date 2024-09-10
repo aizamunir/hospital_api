@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
 use App\Http\Resources\PatientResource;
+use App\Models\ActivityLog;
+use Carbon\Carbon;
 
 class PatientController extends Controller
 {
@@ -81,6 +83,23 @@ class PatientController extends Controller
             $patient = Patient::create($data);
             DB::commit();
             
+            //Activity work started
+            $date = Carbon::now()->toDateString();
+            $time = Carbon::now()->toTimeString();
+            $last_id = $patient->id;
+
+            $activity_log = new ActivityLog();
+
+            $activity_log->patient_id = '1';
+            //$activity_log->doctor_id = '1';
+            $activity_log->remarks = 'patient admitted';
+            $activity_log->date = $date;
+            $activity_log->time = $time;
+            $activity_log->save();
+
+            DB::commit();
+            //Activity work ended
+
             return response()->json([
                 'message' => 'Patient Registered Succesfully.'
             ], 200);
@@ -157,6 +176,23 @@ class PatientController extends Controller
                 
                 DB::commit();
 
+                //Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $patient->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $id;
+                //$activity_log->doctor_id = '1';
+                $activity_log->remarks = 'patient updated';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
                 return response()->json(
                     [
                         'message' => 'Patient updated succesfully',
@@ -204,6 +240,23 @@ class PatientController extends Controller
             try {
                 $patient -> delete();
                 DB::commit();
+
+                //Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $patient->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $id;
+                //$activity_log->doctor_id = '1';
+                $activity_log->remarks = 'patient deleted';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
 
                 $response =[
                     'message' => 'Patient deleted successfully.',

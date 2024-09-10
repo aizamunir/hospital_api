@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\DiagnosticTest;
+use App\Models\ActivityLog;
+use App\Http\Resources\ActivityLogResource;
 
 class ActivityLogController extends Controller
 {
@@ -220,4 +222,25 @@ class ActivityLogController extends Controller
         return response()->json($response, $respCode);
     }
     
+    public function getPatientHistory(string $patient_id)
+    {
+        $activitylog = ActivityLog::where('patient_id', $patient_id)->with(['patients', 'doctors'])->get();
+
+        if(is_null($activitylog)) {
+            $response = [
+                'message' => 'Activity Log not found.',
+                'status' => 0
+            ];
+        }
+        else{
+            $response = [
+                'message' => 'Activity Log found.',
+                'status' => 1,
+                //'data' => $activitylog
+                'data' => ActivityLogResource::collection($activitylog)
+            ];
+        }
+
+        return response()->json($response, 200);
+    }
 }

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\DiagnosticTest;
+use App\Models\ActivityLog;
+use Carbon\Carbon;
 
 class DiagnosticTestController extends Controller
 {
@@ -74,6 +76,23 @@ class DiagnosticTestController extends Controller
 
             $diagnostictest = DiagnosticTest::create($data);
             DB::commit();
+
+            //Activity work started
+            $date = Carbon::now()->toDateString();
+            $time = Carbon::now()->toTimeString();
+            $last_id = $diagnostictest->id;
+
+            $activity_log = new ActivityLog();
+
+            $activity_log->patient_id = $request->patient_id;
+            $activity_log->doctor_id = $request->doctor_id;
+            $activity_log->remarks = 'diagnostic test added';
+            $activity_log->date = $date;
+            $activity_log->time = $time;
+            $activity_log->save();
+
+            DB::commit();
+            //Activity work ended
 
             return response()->json([
                 'message' => 'Diagnostic Tests Added Succesfully.'
@@ -149,6 +168,23 @@ class DiagnosticTestController extends Controller
 
                 DB::commit();
 
+                //Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $diagnostictest->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $request->patient_id;
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'diagnostic test added';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
                 return response()->json([
                     'message' => 'Diagnostic Test updated Successfully.',
                     'status' => 1
@@ -193,6 +229,23 @@ class DiagnosticTestController extends Controller
             try {
                 $diagnostictest -> delete();
                 DB::commit();
+
+                //Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $diagnostictest->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $request->patient_id;
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'diagnostic test added';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
 
                 $response =[
                     'message' => 'Diagnostic Test deleted successfully.',

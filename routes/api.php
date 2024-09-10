@@ -21,6 +21,8 @@ Route::post('patient/store', [PatientController::class,'store']);
 
 Route::get('patients', [PatientController::class,'index']);
 
+Route::get('patient/{id}', [PatientController::class,'show']);
+
 Route::delete('patient/delete/{patient_id}', [PatientController::class,'destroy']);
 
 Route::put('patient/update/{patient_id}', [PatientController::class,'update']);
@@ -127,3 +129,5 @@ Route::get('activity_log', [ActivityLogController::class, 'index']);
 Route::put('activity_log/update/{activity_log_id}', [ActivityLogController::class,'update']);
 
 Route::delete('activity_log/delete/{activity_log_id}', [ActivityLogController::class,'destroy']);
+
+Route::get('get_patient_history/{patient_id}', [ActivityLogController::class, 'getPatientHistory']);

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Medicine;
+use App\Models\ActivityLog;
+use Carbon\Carbon;
 
 class MedicineController extends Controller
 {

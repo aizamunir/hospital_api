@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Service;
+use App\Models\ActivityLog;
+use Carbon\Carbon;
 
 class ServiceController extends Controller
 {
@@ -75,6 +77,22 @@ class ServiceController extends Controller
 
             $service = Service::create($data);
             DB::commit();
+
+            ///Activity work started
+            $date = Carbon::now()->toDateString();
+            $time = Carbon::now()->toTimeString();
+            $last_id = $service->id;
+
+            $activity_log = new ActivityLog();
+
+            $activity_log->doctor_id = $request->doctor_id;
+            $activity_log->remarks = 'service added';
+            $activity_log->date = $date;
+            $activity_log->time = $time;
+            $activity_log->save();
+
+            DB::commit();
+            //Activity work ended
             
             return response()->json([
                 'message' => 'Service Added Succesfully.'
@@ -150,6 +168,22 @@ class ServiceController extends Controller
 
                 DB::commit();
 
+                ///Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $service->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'service updated';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
                 return response()->json([
                     'message' => 'Service updated successfully',
                     'status' => 1
@@ -188,6 +222,22 @@ class ServiceController extends Controller
             try {
                 $service -> delete();
                 DB::commit();
+
+                ///Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $service->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'service deleted';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
 
                 $response =[
                     'message' => 'Service deleted successfully.',

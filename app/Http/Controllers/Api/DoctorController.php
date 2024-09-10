@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Doctor;
 use App\Models\Patients;
+use App\Models\ActivityLog;
+use Carbon\Carbon;
 
 
 class DoctorController extends Controller
@@ -78,6 +80,24 @@ class DoctorController extends Controller
 
                 $doctor = Doctor::create($data);
                 DB::commit();
+
+                //Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $doctor->id;
+
+                $activity_log = new ActivityLog();
+
+                //$activity_log->patient_id = $id;
+                $activity_log->doctor_id = $last_id;
+                $activity_log->remarks = 'doctor added';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
             } catch(\Exception $e) {
                 DB::rollBack();
                 $doctor = null;
@@ -160,6 +180,23 @@ class DoctorController extends Controller
 
                 DB::commit();
 
+                //Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $doctor->id;
+
+                $activity_log = new ActivityLog();
+
+                //$activity_log->patient_id = $id;
+                $activity_log->doctor_id = $last_id;
+                $activity_log->remarks = 'doctor updated';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
             } catch (\Exception $e) {
                 DB::rollBack();
                 $doctor = null;
@@ -211,6 +248,23 @@ class DoctorController extends Controller
             try {
                 $doctor -> delete();
                 DB::commit();
+
+                //Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $doctor->id;
+
+                $activity_log = new ActivityLog();
+
+                //$activity_log->patient_id = $id;
+                $activity_log->doctor_id = $last_id;
+                $activity_log->remarks = 'doctor deleted';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
 
                 $response =[
                     'message' => 'Doctor deleted successfully.',

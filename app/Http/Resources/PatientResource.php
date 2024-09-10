@@ -21,11 +21,11 @@ class PatientResource extends JsonResource
             'disease'=>$this->disease,
             'phn_num'=>$this->phn_num,
             'gender'=>$this->gender,
+            'status'=>$this->status,
             'doctor'=> [
                 'doctor_id'=>$this->doctor->doctor_id,
                 'name'=>$this->doctor->name
             ],
-            
         ];
     }
 }

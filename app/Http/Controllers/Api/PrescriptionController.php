@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Prescription;
+use App\Models\ActivityLog;
+use Carbon\Carbon;
 
 class PrescriptionController extends Controller
 {
@@ -73,6 +75,23 @@ class PrescriptionController extends Controller
 
             $prescription = Prescription::create($data);
             DB::commit();
+
+            //Activity work started
+            $date = Carbon::now()->toDateString();
+            $time = Carbon::now()->toTimeString();
+            $last_id = $prescription->id;
+
+            $activity_log = new ActivityLog();
+
+            $activity_log->patient_id = $request->patient_id;
+            $activity_log->doctor_id = $request->doctor_id;
+            $activity_log->remarks = 'precription added';
+            $activity_log->date = $date;
+            $activity_log->time = $time;
+            $activity_log->save();
+
+            DB::commit();
+            //Activity work ended
             
             return response()->json([
                 'message' => 'Prescription Added Succesfully.'
@@ -148,6 +167,23 @@ class PrescriptionController extends Controller
 
                 DB::commit();
 
+                ///Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $prescription->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $request->patient_id;
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'precription updated';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
             } catch (\Exception $e) {
                 DB::rollBack();
                 $prescription = null;
@@ -199,6 +235,25 @@ class PrescriptionController extends Controller
             try {
                 $prescription -> delete();
                 DB::commit();
+
+                
+                ///Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $prescription->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $request->patient_id;
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'precription deleted';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
 
                 $response =[
                     'message' => 'Prescription deleted successfully.',

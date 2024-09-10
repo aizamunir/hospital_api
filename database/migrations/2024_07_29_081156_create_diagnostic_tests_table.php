@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('patient_id');
             $table->string('description', 500);
             $table->string('tests', 250);
+            $table->string('result', 250);
             $table->timestamps();
         });
     }

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Schedule;
+use App\Models\ActivityLog;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -78,6 +80,24 @@ class ScheduleController extends Controller
             $schedule = Schedule::create($data);
             DB::commit();
             
+                 
+                ///Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $schedule->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $request->patient_id;
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'schedule added';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
             return response()->json([
                 'message' => 'Schedule Added Succesfully.'
             ], 200);
@@ -151,6 +171,25 @@ class ScheduleController extends Controller
 
                 DB::commit();
 
+                     
+                ///Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $schedule->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $request->patient_id;
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'schedule updated';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
+
             } catch (\Exception $e) {
                 DB::rollBack();
                 $schedule = null;
@@ -202,6 +241,25 @@ class ScheduleController extends Controller
             try {
                 $schedule -> delete();
                 DB::commit();
+
+                     
+                ///Activity work started
+                $date = Carbon::now()->toDateString();
+                $time = Carbon::now()->toTimeString();
+                $last_id = $schedule->id;
+
+                $activity_log = new ActivityLog();
+
+                $activity_log->patient_id = $request->patient_id;
+                $activity_log->doctor_id = $request->doctor_id;
+                $activity_log->remarks = 'schedule deleted';
+                $activity_log->date = $date;
+                $activity_log->time = $time;
+                $activity_log->save();
+
+                DB::commit();
+                //Activity work ended
+
 
                 $response =[
                     'message' => 'Schedule deleted successfully.',
