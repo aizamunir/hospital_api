@@ -224,7 +224,7 @@ class ActivityLogController extends Controller
     
     public function getPatientHistory(string $patient_id)
     {
-        $activitylog = ActivityLog::where('patient_id', $patient_id)->with(['patients', 'doctors'])->get();
+        $activitylog = ActivityLog::where('patient_id', $patient_id)->with(['patient', 'doctor'])->get();
 
         if(is_null($activitylog)) {
             $response = [

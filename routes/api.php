@@ -130,4 +130,4 @@ Route::put('activity_log/update/{activity_log_id}', [ActivityLogController::clas
 
 Route::delete('activity_log/delete/{activity_log_id}', [ActivityLogController::class,'destroy']);
 
-Route::get('get_patient_history/{patient_id}', [ActivityLogController::class, 'getPatientHistory']);
+Route::get('patienthistory/{patient_id}', [ActivityLogController::class, 'getPatientHistory']);

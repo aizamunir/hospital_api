@@ -22,11 +22,11 @@ class ActivityLog extends Model
         'time'
     ];
 
-    public function doctors() {
-        return $this->hasMany(Doctor::class, 'doctor_id', 'doctor_id');
+    public function doctor() {
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'doctor_id');
     }
 
-    public function patients() {
-        return $this->hasMany(Patient::class, 'patient_id', 'patient_id');
+    public function patient() {
+        return $this->belongsTo(Patient::class, 'patient_id', 'patient_id');
     }
 }
