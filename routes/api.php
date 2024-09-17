@@ -63,6 +63,9 @@ Route::put('diagnostictest/update/{diagnostictest_id}', [DiagnosticTestControlle
 
 Route::delete('diagnostictest/delete/{diagnostictest_id}', [DiagnosticTestController::class,'destroy']);
 
+
+Route::get('patientdiagnostictest/{patient_id}', [DiagnosticTestController::class, 'getPatientDiagnosticTest']);
+
 //SCHEDULE
 
 Route::post('schedule/store', [ScheduleController::class,'store']);

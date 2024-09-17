@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\DiagnosticTest;
 use App\Models\ActivityLog;
 use Carbon\Carbon;
+use App\Http\Resources\DiagnosticTestResource;
 
 class DiagnosticTestController extends Controller
 {
@@ -271,6 +272,27 @@ class DiagnosticTestController extends Controller
         }
 
         return response()->json($response, $respCode);
+    }
+        
+    public function getPatientDiagnosticTest(string $patient_id)
+    {
+        $diagnostictest = DiagnosticTest::where('patient_id', $patient_id)->with(['patient', 'doctor'])->get();
+
+        if(is_null($diagnostictest)) {
+            $response = [
+                'message' => 'Diagnostic Test not found.',
+                'status' => 0
+            ];
+        }
+        else{
+            $response = [
+                'message' => 'Diagnostic Test found.',
+                'status' => 1,
+                'data' => DiagnosticTestResource::collection($diagnostictest)
+            ];
+        }
+
+        return response()->json($response, 200);
     }
     
 }
