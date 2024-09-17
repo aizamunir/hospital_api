@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Prescription;
 use App\Models\ActivityLog;
 use Carbon\Carbon;
+use App\Http\Resources\PrescriptionResource;
 
 class PrescriptionController extends Controller
 {
@@ -279,5 +280,26 @@ class PrescriptionController extends Controller
         }
 
         return response()->json($response, $respCode);
+    }
+
+    public function getPatientPrescription(string $patient_id)
+    {
+        $prescription = Prescription::where('patient_id', $patient_id)->with(['patient', 'doctor'])->get();
+
+        if(is_null($prescription)) {
+            $response = [
+                'message' => 'Prescription not found.',
+                'status' => 0
+            ];
+        }
+        else{
+            $response = [
+                'message' => 'Prescription found.',
+                'status' => 1,
+                'data' => PrescriptionResource::collection($prescription)
+            ];
+        }
+
+        return response()->json($response, 200);
     }
 }

@@ -50,6 +50,9 @@ Route::put('prescription/update/{prescription_id}', [PrescriptionController::cla
 Route::delete('prescription/delete/{prescription_id}', [PrescriptionController::class,'destroy']);
 
 
+Route::get('patientprescription/{patient_id}', [PrescriptionController::class, 'getPatientPrescription']);
+
+
 //DIAGNOSTIC TEST LIST
 
 Route::post('diagnostictest/store', [DiagnosticTestController::class,'store']);
@@ -129,5 +132,6 @@ Route::get('activity_log', [ActivityLogController::class, 'index']);
 Route::put('activity_log/update/{activity_log_id}', [ActivityLogController::class,'update']);
 
 Route::delete('activity_log/delete/{activity_log_id}', [ActivityLogController::class,'destroy']);
+
 
 Route::get('patienthistory/{patient_id}', [ActivityLogController::class, 'getPatientHistory']);
