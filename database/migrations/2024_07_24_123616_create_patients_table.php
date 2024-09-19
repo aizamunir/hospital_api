@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('phn_num', 13);
             $table->string('disease', 50);
             $table->string('gender', 6);
+            $table->string('weight', 6);
+            $table->string('height', 6);
+            $table->string('attendee', 15);
             $table->string('doctor_id', 25);
             $table->string('status', 15);
             $table->timestamps();

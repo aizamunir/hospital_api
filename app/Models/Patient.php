@@ -19,6 +19,9 @@ class Patient extends Model
         'phn_num',
         'disease',
         'gender',
+        'weight',
+        'height',
+        'attendee',
         'doctor_id',
         'status'
     ];

@@ -58,6 +58,9 @@ class PatientController extends Controller
             'phn_num' => ['required'], ['regex:/^03\d{9,}$/'],
             'disease' => ['required'],
             'gender' => ['required'],
+            'height' => ['required'],
+            'weight' => ['required'],
+            'attendee' => ['required'],
             'doctor_id' => ['required'],
             'status' => ['required']
         ]);
@@ -72,6 +75,9 @@ class PatientController extends Controller
             'phn_num' => $request->phn_num,
             'disease' => $request->disease,
             'gender' => $request->gender,
+            'height' => $request->height,
+            'weight' => $request->weight,
+            'attendee' => $request->attendee,
             'doctor_id' => $request->doctor_id,
             'status' => $request->status
         ];
@@ -169,6 +175,9 @@ class PatientController extends Controller
                 $patient -> phn_num = $request['phn_num'];
                 $patient -> disease = $request['disease'];
                 $patient -> gender = $request['gender'];
+                $patient -> gender = $request['height'];
+                $patient -> gender = $request['weight'];
+                $patient -> gender = $request['attendee'];
                 $patient -> doctor_id = $request['doctor_id'];
                 $patient -> status = $request['status'];
 
