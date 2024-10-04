@@ -113,7 +113,8 @@ class PatientController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
-                'message' => 'Internal Servor Error.'
+                //'message' => 'Internal Servor Error.'
+                'message' => $e->getMessage()
             ], 500);
         }
     }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('activity_log', function (Blueprint $table) {
             $table->id('activity_log_id');
-            $table->integer('patient_id');
-            $table->integer('doctor_id');
+            $table->integer('patient_id')->nullable();
+            $table->integer('doctor_id')->nullable();
             $table->string('remarks');
             $table->date('date');
             $table->time('time');
