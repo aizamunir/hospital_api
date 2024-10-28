@@ -21,6 +21,7 @@ class PrescriptionResource extends JsonResource
             'description'=>$this->description,
             'medicines'=>$this->medicines,
             'next_visit'=>$this->next_visit,
+            'created_at'=>$this->created_at,
             'doctor'=> $this->doctor ? [
                 'doctor_id'=>$this->doctor->doctor_id,
                 'name'=>$this->doctor->name
