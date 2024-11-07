@@ -18,14 +18,16 @@ class PrescriptionController extends Controller
      */
     public function index()
     {
-        $prescription = Prescription::all();
+        //$prescription = Prescription::all();
+
+        $prescription = Prescription::with('doctor')->get();
 
         if(count($prescription) > 0) {
             return response()->json(
                 [
                     'message' => count($prescription) . ' prescriptions found.',
                     'status' => 1,
-                    'data' => $prescription
+                    'data' => PrescriptionResource::collection($prescription)
                 ], 200
             );
         }

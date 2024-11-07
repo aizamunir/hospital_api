@@ -18,14 +18,16 @@ class DiagnosticTestController extends Controller
      */
     public function index()
     {
-        $diagnostictests = DiagnosticTest::all();
+        //$diagnostictests = DiagnosticTest::all();
+
+        $diagnostictests = DiagnosticTest::with('doctor')->get();
 
         if(count($diagnostictests) > 0) {
             return response()->json(
                 [
                     'message' => count($diagnostictests) . ' diagnostic tests found.',
                     'status' => 1,
-                    'data' => $diagnostictests
+                    'data' => DiagnosticTestResource::collection($diagnostictests)
                 ], 200
             );
         }
