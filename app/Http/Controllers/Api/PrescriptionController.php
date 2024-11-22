@@ -10,7 +10,7 @@ use App\Models\Prescription;
 use App\Models\ActivityLog;
 use Carbon\Carbon;
 use App\Http\Resources\PrescriptionResource;
-
+ 
 class PrescriptionController extends Controller
 {
     /**

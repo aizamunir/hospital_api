@@ -22,6 +22,9 @@ class PatientResource extends JsonResource
             'phn_num'=>$this->phn_num,
             'gender'=>$this->gender,
             'status'=>$this->status,
+            'weight'=>$this->weight,
+            'height'=>$this->height,
+            'attendee'=>$this->attendee,
             'doctor'=> [
                 'doctor_id'=>$this->doctor->doctor_id,
                 'name'=>$this->doctor->name

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Schedule;
 use App\Models\ActivityLog;
 use Carbon\Carbon;
+use App\Http\Resources\SchedueleResource;
 
 class ScheduleController extends Controller
 {
@@ -17,16 +18,26 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::all();
+        //$schedules = Schedule::all();
+
+        $schedule = Schedule::with('doctor')->get();
 
         if(count($schedules) > 0) {
-            return response()->json(
-                [
-                    'message' => count($schedules) . ' schedules found.',
-                    'status' => 1,
-                    'data' => $schedules
-                ], 200
-            );
+            try {
+                return response()->json(
+                    [
+                        'message' => count($schedules) . ' schedules found.',
+                        'status' => 1,
+                        //'data' => ScheduleResource::collection($schedule)
+                        'data' => $schedules
+                    ], 200
+                );
+            } catch (\Exception $e) {
+
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], 200);
+                }
         }
         else {
             return response()->json(
